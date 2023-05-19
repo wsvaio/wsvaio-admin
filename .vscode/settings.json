@@ -1,0 +1,24 @@
+{
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabCompletion": "on",
+  "editor.acceptSuggestionOnEnter": "off",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+
+  "stylelint.enable": true,
+  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass", "html"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "less.lint.unknownAtRules": "ignore",
+  "npm.packageManager": "pnpm",
+  "search.exclude": {
+    "dist": true,
+    "node_modules": true,
+    "CHANGELOG.md": true,
+    "pnpm-lock.yaml": true
+  },
+	"files.eol": "\n",
+	"vue.complete.casing.tags": "autoKebab"
+}

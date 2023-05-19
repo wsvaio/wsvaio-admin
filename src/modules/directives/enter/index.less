@@ -1,0 +1,15 @@
+.v-enter {
+  animation: v-enter var(--v-enter-duration, 0.4s) var(--v-enter-delay, 0s) both;
+}
+
+@keyframes v-enter {
+  0% {
+    transform: translate(var(--v-enter-translate, 0, 48px));
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}

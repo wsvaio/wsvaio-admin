@@ -1,0 +1,17 @@
+{
+	"extends": ["@wsvaio"],
+	"prompt": {
+		"scopes": [
+			"projects",
+			"components",
+			"hooks",
+			"utils",
+			"types",
+			"styles",
+			"deps",
+			"auth",
+			"release",
+			"other"
+		]
+	}
+}
