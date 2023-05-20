@@ -2,6 +2,8 @@
   "root": true,
   "extends": "@wsvaio",
   "rules": {
-    "antfu/top-level-function": "off"
+    "antfu/top-level-function": "off",
+		"no-tabs": "off",
+		"no-mixed-spaces-and-tabs": "off"
   }
 }

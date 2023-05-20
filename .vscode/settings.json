@@ -20,5 +20,6 @@
     "pnpm-lock.yaml": true
   },
 	"files.eol": "\n",
-	"vue.complete.casing.tags": "autoKebab"
+	"vue.complete.casing.tags": "kebab",
+  "vue.complete.casing.props": "kebab"
 }

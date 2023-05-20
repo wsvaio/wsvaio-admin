@@ -56,6 +56,8 @@ declare global {
   const customRef: typeof import('vue')['customRef']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
+  const deepFind: typeof import('../utils/index')['deepFind']
+  const deepMap: typeof import('../utils/index')['deepMap']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const defineStore: typeof import('pinia')['defineStore']
@@ -188,6 +190,7 @@ declare global {
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
   const sysPermissionGetMenuList: typeof import('../apis/local/index')['sysPermissionGetMenuList']
+  const sysPermissionGetMenuTree: typeof import('../apis/local/index')['sysPermissionGetMenuTree']
   const sysPermissionTreeList: typeof import('../apis/local/index')['sysPermissionTreeList']
   const templateRef: typeof import('@vueuse/core')['templateRef']
   const throttledRef: typeof import('@vueuse/core')['throttledRef']
@@ -422,6 +425,8 @@ declare module 'vue' {
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
+    readonly deepFind: UnwrapRef<typeof import('../utils/index')['deepFind']>
+    readonly deepMap: UnwrapRef<typeof import('../utils/index')['deepMap']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
@@ -496,6 +501,9 @@ declare module 'vue' {
     readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
+    readonly sysPermissionGetMenuList: UnwrapRef<typeof import('../apis/local/index')['sysPermissionGetMenuList']>
+    readonly sysPermissionGetMenuTree: UnwrapRef<typeof import('../apis/local/index')['sysPermissionGetMenuTree']>
+    readonly sysPermissionTreeList: UnwrapRef<typeof import('../apis/local/index')['sysPermissionTreeList']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
     readonly throttledRef: UnwrapRef<typeof import('@vueuse/core')['throttledRef']>
     readonly throttledWatch: UnwrapRef<typeof import('@vueuse/core')['throttledWatch']>

@@ -10,6 +10,14 @@ const router = createRouter({
 
 router.beforeEach(() => Progress.start());
 
+router.beforeEach(async (to, from, next) => {
+  const auth = useAuthStore();
+  if (auth.routes.length) return next();
+  await auth.Routes();
+  auth.routes.forEach(item => router.addRoute("administrator", item));
+  next({ ...to, replace: true });
+});
+
 router.afterEach(() => Progress.clear());
 
 export const install = (app: App) => app.use(router);
