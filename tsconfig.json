@@ -29,6 +29,7 @@
     },
     "types": [
 			"vite/client",
+			"naive-ui/volar",
 			"@vue-macros/reactivity-transform/macros-global"
     ]
   },
