@@ -1,28 +1,45 @@
-<script lang="ts" setup>
-import type { AdministratorProvide } from "../..";
+<script setup lang="ts">
+import BreadCrumb from "./components/bread-crumb/index.vue";
+import SettingView from "./components/setting/index.vue";
 
-const { tabs } = inject<AdministratorProvide>("administratorProvide")!;
-
-function dragstart(event: DragEvent) {
-  const el: any = event.target;
-  event.dataTransfer?.setData("dragIndex", el?.dataset?.index);
-}
-function drop(event: DragEvent, dropIndex: number) {
-  const dragIndex: any = event.dataTransfer?.getData("dragIndex");
-
-  let temp = tabs[dragIndex];
-
-  tabs.splice(dragIndex, 1);
-  tabs.splice(dropIndex, 0, temp);
-}
+const tab = useTabStore();
+const setting = useSettingStore();
 </script>
 
 <template>
-  <n-tag v-for="(item, index) in tabs" closable @close="tabs.delete(index, 1)">
-    {{ item.meta?.title }}
-  </n-tag>
+  <header class="admin-header">
+    <n-icon @click="setting.collapsed = !setting.collapsed">
+      <i-line-md:menu-fold-left v-if="!setting.collapsed" />
+      <i-line-md:menu-unfold-right v-else />
+    </n-icon>
+    <n-icon @click="tab.refresh($route.name)">
+      <i-iconoir:refresh />
+    </n-icon>
+    <bread-crumb></bread-crumb>
+    <div m="l-auto"></div>
+    <setting-view></setting-view>
+  </header>
 </template>
 
 <style lang="less">
+header.admin-header {
+	display: flex;
+	align-items: center;
+	height: 100%;
+	padding: 0 10px;
 
+	& > * {
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+
+	.n-icon {
+		min-width: 32px;
+		font-size: 18px;
+		cursor: pointer;
+	}
+}
 </style>

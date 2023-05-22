@@ -4,7 +4,21 @@ import type { RouteRecordRaw } from "vue-router";
 import { RouterLink } from "vue-router";
 import { merge } from "@wsvaio/utils";
 import router from "@/modules/router";
-import { components } from "@/routes";
+import { components, staticRoutes } from "@/routes";
+import AntDesignicon from "@/components/ant-design-icon/index.vue";
+
+const label = (item: RouteRecordRaw) => item?.component
+  ? () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            name: item.name,
+          },
+        },
+        { default: () => item.meta?.title },
+      )
+  : item.meta?.title;
 
 export default defineStore("auth", {
   state: () => ({
@@ -29,26 +43,25 @@ export default defineStore("auth", {
       router.push({ name: "login" });
     },
     async Routes() {
-      // sysPermissionGetMenuList();
-      console.log(components);
-      // const routeList = await sysPermissionGetMenuTree();
       const routeList = await sysPermissionTreeList();
       this.routes = deepMap(routeList as any[], (item) => {
         item.children = item?.children?.filter(item => item.type != "F");
-
         return {
           path: item.path,
           name: item.name,
           meta: {
             title: item.name,
-            // icon: item.meta.icon,
+            icon: item.icon,
             show: item.isDisplay != 0,
+            sort: item.sort,
             data: { ...item },
           },
           component:
 						item.type == "M" ? components[`/src/views${item.component}/index.vue`] : undefined,
         } as RouteRecordRaw;
       });
+      this.routes.push(...staticRoutes);
+      this.routes.sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0));
     },
 
     async getRouteByName() {},
@@ -61,23 +74,15 @@ export default defineStore("auth", {
       return deepMap(
         this.routes,
         (item): MenuOption => ({
-          label:
-						item?.meta?.data?.type == "M"
-						  ? () =>
-						      h(
-						        RouterLink,
-						        {
-						          to: {
-						            name: item.name,
-						          },
-						        },
-						        { default: () => item.meta?.title },
-						      )
-						  : item.meta?.title,
-          // icon: item.meta?.icon,
+          label: label(item),
+          icon:
+						item.meta?.icon
+						  ? () => h(AntDesignicon, { name: String(item.meta?.icon) })
+						  : undefined,
           key: String(item.name),
           show: item.meta?.show,
           disabled: item.meta?.disabled,
+
         }),
       );
     },

@@ -1,0 +1,6 @@
+defineComponent({
+
+  render() {
+    return "";
+  },
+});

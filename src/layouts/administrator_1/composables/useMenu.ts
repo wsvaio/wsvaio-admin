@@ -9,6 +9,7 @@ export default () => {
     currentActiveMenu.value
 			= deepFind(auth.routes, item => item.path == route?.meta?.data?.currentActiveMenu)?.name
 			|| route.name;
+    console.log(currentActiveMenu.value, route.meta?.data?.currentActiveMenu, deepFind(auth.routes, item => item.path == route?.meta?.data?.currentActiveMenu));
   };
   onBeforeRouteUpdate(to => handleUpdate(to));
   handleUpdate(route);

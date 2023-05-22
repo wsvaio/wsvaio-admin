@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import type { AdministratorProvide } from "../..";
 
 const { currentActiveMenu } = inject<AdministratorProvide>("administrator-provide")!;
@@ -12,6 +12,4 @@ const { currentActiveMenu } = inject<AdministratorProvide>("administrator-provid
   />
 </template>
 
-<style lang='less'>
-
-</style>
+<style lang="less"></style>

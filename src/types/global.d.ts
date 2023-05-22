@@ -13,6 +13,7 @@ declare module "vue-router" {
 		icon?: string;
 		show?: boolean;
 		disabled?: boolean;
+		sort?: number;
 
 		data?: {
 			id?: string;
