@@ -16,10 +16,10 @@ export default defineStore("tab", {
       return this.tabs.findIndex(item => item.name == name);
     },
     insert(index: number, route: RouteLocationNormalizedLoaded | RouteRecordRaw) {
-      this.tabs.splice(index, 0, route);
+      this.tabs.splice(index, 0, { ...route });
     },
     append(route: RouteLocationNormalizedLoaded | RouteRecordRaw) {
-      if (!this.findByName(route.name)) this.tabs.push(route);
+      if (!this.findByName(route.name)) this.tabs.push({ ...route });
     },
     replace(route: RouteLocationNormalizedLoaded | RouteRecordRaw) {
       const index = this.findIndexByName(route.name);

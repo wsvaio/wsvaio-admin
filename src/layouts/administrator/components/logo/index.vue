@@ -5,7 +5,7 @@ const setting = useSettingStore();
 </script>
 
 <template>
-  <div class="logo">
+  <div class="administrator-logo">
     <transition name="fade" mode="out-in">
       <div v-if="!setting.collapsed" class="uncollapsed">
         <n-image :src="Logo" alt="logo" object-fit="contain"></n-image>
@@ -21,7 +21,7 @@ const setting = useSettingStore();
 </template>
 
 <style lang='less'>
-.logo {
+.administrator-logo {
 	height: 100%;
 	overflow: hidden;
 

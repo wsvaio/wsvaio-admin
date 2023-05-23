@@ -5,7 +5,7 @@ const tab = useTabStore();
 </script>
 
 <template>
-  <main>
+  <n-scrollbar>
     <router-view #="{ Component }">
       <transition mode="out-in" name="main-fade">
         <keep-alive :include="tab.include" :exclude="tab.exclude">
@@ -13,7 +13,7 @@ const tab = useTabStore();
         </keep-alive>
       </transition>
     </router-view>
-  </main>
+  </n-scrollbar>
 </template>
 
 <style lang="less">

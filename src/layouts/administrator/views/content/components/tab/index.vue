@@ -10,8 +10,7 @@ const { tabs } = tab;
 const router = useRouter();
 
 const handleUpdate = (route: RouteLocationNormalizedLoaded | RouteRecordRaw) => {
-  const finded = deepFind(auth.routes, item => item.name == route.name);
-  finded && tab.appendOrReplace(route);
+  deepFind(auth.routes, item => item.name == route.name) && tab.appendOrReplace(route);
 };
 onBeforeRouteUpdate(to => handleUpdate(to));
 handleUpdate(route);
@@ -46,7 +45,7 @@ const log = console.log;
 </script>
 
 <template>
-  <nav class="admin-tab">
+  <nav class="administrator-tab">
     <n-icon @click="tabsScrollTo(-100)">
       <i-ion:ios-arrow-right class="rotate-[180deg]" />
     </n-icon>
@@ -120,7 +119,7 @@ const log = console.log;
 </template>
 
 <style lang="less">
-nav.admin-tab {
+nav.administrator-tab {
 	display: flex;
 	align-items: center;
 	padding: 6px 10px;
