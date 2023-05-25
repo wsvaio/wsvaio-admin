@@ -10,13 +10,29 @@ const router = createRouter({
 
 router.beforeEach(() => Progress.start());
 
-router.beforeEach(async (to, from, next) => {
+// 注册路由
+router.beforeEach(async (to, _from, next) => {
   const auth = useAuthStore();
   if (auth.routes.length) return next();
-  await auth.Routes();
-  auth.routes.forEach(item => router.addRoute("administrator", item));
-  next({ ...to, replace: true });
+  await auth.addOrReplaceRoute().then(() => {
+    next({ ...to, replace: true });
+  }).catch(() => {
+    next({ path: "/500", replace: true });
+  });
 });
+
+// router.beforeEach(async (to, _from, next) => {
+//   const auth = useAuthStore();
+//   const routeStore = useRouteStore();
+//   if (routeStore.routes.length <= 0 && auth.isLogin) {
+//     await routeStore.syncRoutes().then(() => {
+//       next({ ...to, replace: true });
+//     }).catch(() => {
+//       next({ path: "/500", replace: true });
+//     });
+//   }
+//   else { next(); }
+// });
 
 router.afterEach(() => Progress.clear());
 

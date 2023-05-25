@@ -1,7 +1,12 @@
 <script setup lang="ts">
-import AsideView from "../../views/aside/index.vue";
-import HeaderView from "../../views/header/index.vue";
-import ContentView from "../../views/content/index.vue";
+import Collapse from "../../components/collapse/index.vue";
+import BreadCrumb from "../../components/bread-crumb/index.vue";
+import Refresh from "../../components/refresh/index.vue";
+
+import AsideView from "@/layouts/administrator/views/aside/index.vue";
+import HeaderView from "@/layouts/administrator/views/header/index.vue";
+import ContentView from "@/layouts/administrator/views/content/index.vue";
+import FooterView from "@/layouts/administrator/views/footer/index.vue";
 
 const setting = useSettingStore();
 </script>
@@ -21,18 +26,23 @@ const setting = useSettingStore();
     </n-layout-sider>
     <n-layout>
       <n-layout-header
-        class="relative z-10"
+        class="relative z-10 flex items-center px-10px children:mr-16px"
         :style="{
           height: `${setting.headerHeight}px`,
           boxShadow: '0 1px 4px rgba(0, 21, 41, 0.08)',
         }"
       >
+        <collapse></collapse>
+        <refresh></refresh>
+        <bread-crumb class="mr-auto"></bread-crumb>
         <header-view></header-view>
       </n-layout-header>
-      <n-layout-content :style="{ height: `calc(100% - ${setting.headerHeight}px)` }" embedded>
+      <n-layout-content :style="{ height: `calc(100% - ${setting.headerHeight + setting.footerHeight}px)` }" embedded>
         <content-view></content-view>
       </n-layout-content>
-      <!-- <n-layout-footer>Copyright ©2021 Soybean Admin</n-layout-footer> -->
+      <n-layout-footer :style="{ height: `${setting.footerHeight}px` }">
+        <footer-view></footer-view>
+      </n-layout-footer>
     </n-layout>
   </n-layout>
 </template>

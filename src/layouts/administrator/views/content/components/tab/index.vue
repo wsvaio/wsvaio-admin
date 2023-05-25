@@ -3,6 +3,7 @@ import { NIcon } from "naive-ui";
 import type { RouteLocationNormalizedLoaded, RouteRecordName, RouteRecordRaw } from "vue-router";
 import IRefresh from "~icons/iconoir/refresh";
 
+const setting = useSettingStore();
 const tab = useTabStore();
 const auth = useAuthStore();
 const route = useRoute();
@@ -24,6 +25,7 @@ const tabsScrollTo = (num: number) =>
 const tabsScrollIntoView = (index: number) =>
   tabsRef?.children[index]?.scrollIntoView({
     behavior: "smooth",
+
   });
 
 let currentDragName: RouteRecordName | null | undefined = "";
@@ -45,10 +47,14 @@ const log = console.log;
 </script>
 
 <template>
-  <nav class="administrator-tab">
-    <n-icon @click="tabsScrollTo(-100)">
-      <i-ion:ios-arrow-right class="rotate-[180deg]" />
-    </n-icon>
+  <nav class="administrator-tab" :style="{ height: `${setting.tabHeight}px` }">
+    <n-button text @click="tabsScrollTo(-100)">
+      <template #icon>
+        <n-icon>
+          <i-ion:ios-arrow-right class="rotate-[180deg]" />
+        </n-icon>
+      </template>
+    </n-button>
     <section
       ref="tabsRef"
       class="tabs"
@@ -61,7 +67,6 @@ const log = console.log;
           v-for="(item, index) in tabs"
           :key="item.name!"
           draggable="true"
-          size="large"
           :closable="tabs.length > 1"
           :bordered="false"
           :type="route.name == item.name ? 'primary' : 'default'"
@@ -78,9 +83,14 @@ const log = console.log;
         </n-tag>
       </transition-group>
     </section>
-    <n-icon @click="tabsScrollTo(100)">
-      <i-ion:ios-arrow-right />
-    </n-icon>
+
+    <n-button text @click="tabsScrollTo(100)">
+      <template #icon>
+        <n-icon>
+          <i-ion:ios-arrow-right />
+        </n-icon>
+      </template>
+    </n-button>
 
     <n-dropdown
       :options="[
@@ -111,9 +121,13 @@ const log = console.log;
       ]"
       @select="log"
     >
-      <n-icon>
-        <i-ion:ios-arrow-right class="rotate-[90deg]" />
-      </n-icon>
+      <n-button text>
+        <template #icon>
+          <n-icon>
+            <i-ion:ios-arrow-right class="rotate-[90deg]" />
+          </n-icon>
+        </template>
+      </n-button>
     </n-dropdown>
   </nav>
 </template>
@@ -125,15 +139,18 @@ nav.administrator-tab {
 	padding: 6px 10px;
 	user-select: none;
 
-	.n-icon {
-		min-width: 32px;
-		font-size: 18px;
-		cursor: pointer;
+	& > * {
+		margin-right: 10px;
+
+		&:last-child {
+			margin-right: 0;
+		}
 	}
 
 	& > section.tabs {
 		display: flex;
 		flex: 1;
+		height: 100%;
 		// overflow: hidden;
 		overflow: auto;
 
@@ -143,7 +160,9 @@ nav.administrator-tab {
 
 		& > .n-tag {
 			position: relative;
+			height: 100%;
 			margin-right: 6px;
+			padding: 0 12px;
 			transition: all 0.333s ease;
 			cursor: pointer;
 

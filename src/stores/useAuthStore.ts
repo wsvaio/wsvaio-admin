@@ -2,23 +2,24 @@ import type { MenuOption } from "naive-ui";
 import { defineStore } from "pinia";
 import type { RouteRecordRaw } from "vue-router";
 import { RouterLink } from "vue-router";
-import { merge } from "@wsvaio/utils";
+import { ergodic, merge } from "@wsvaio/utils";
 import router from "@/modules/router";
-import { components, staticRoutes } from "@/routes";
-import AntDesignicon from "@/components/ant-design-icon/index.vue";
+import { getDynamicRoutes, getStaticRoutes } from "@/routes";
+import Icones from "@/components/icones/index.vue";
 
-const label = (item: RouteRecordRaw) => item?.component
-  ? () =>
-      h(
-        RouterLink,
-        {
-          to: {
-            name: item.name,
+const label = (item: RouteRecordRaw) =>
+  item?.component
+    ? () =>
+        h(
+          RouterLink,
+          {
+            to: {
+              name: item.name,
+            },
           },
-        },
-        { default: () => item.meta?.title },
-      )
-  : item.meta?.title;
+          { default: () => item.meta?.title },
+        )
+    : item.meta?.title;
 
 export default defineStore("auth", {
   state: () => ({
@@ -26,11 +27,9 @@ export default defineStore("auth", {
     refreshToken: "1",
     persist: false,
     routes: [] as RouteRecordRaw[],
-    tabs: [] as RouteRecordRaw[],
   }),
   actions: {
     async login(body: Record<any, any>) {
-      console.log(body, "fjsdkaljf;alskdfjalsdkjf");
       const data = await authorizeToken({ body });
       merge(this.$state, data);
     },
@@ -42,49 +41,55 @@ export default defineStore("auth", {
       this.$reset();
       router.push({ name: "login" });
     },
+    // 组合动态路由和静态路由
     async Routes() {
-      const routeList = await sysPermissionTreeList();
-      this.routes = deepMap(routeList as any[], (item) => {
-        item.children = item?.children?.filter(item => item.type != "F");
-        return {
-          path: item.path,
-          name: item.name,
-          meta: {
-            title: item.name,
-            icon: item.icon,
-            show: item.isDisplay != 0,
-            sort: item.sort,
-            data: { ...item },
-          },
-          component:
-						item.type == "M" ? components[`/src/views${item.component}/index.vue`] : undefined,
-        } as RouteRecordRaw;
-      });
-      this.routes.push(...staticRoutes);
-      this.routes.sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0));
+      this.routes = [];
+      await getDynamicRoutes()
+        .then((routeList) => {
+          this.routes.push(...routeList);
+        })
+        .finally(() => {
+          this.routes.push(...getStaticRoutes());
+          this.routes.sort((a, b) => (a.meta?.sort || 0) - (b.meta?.sort || 0));
+        });
     },
 
-    async getRouteByName() {},
+    // 添加或替换路由到vue-router
+    async addOrReplaceRoute() {
+      router.hasRoute("administrator") && router.removeRoute("administrator");
+      await this.Routes().finally(() => {
+        const children = [] as any[];
+        ergodic(this.routes, (item) => {
+          if (item.path && item.component) children.push(item);
+        });
+        router.addRoute({
+          path: "/",
+          name: "administrator",
+          redirect: () => children[0],
+          component: () => import("@/layouts/administrator/index.vue"),
+          children,
+        });
+      });
+    },
+
   },
   getters: {
     isLogin(): boolean {
       return !!this.accessToken;
     },
+
     menus(): MenuOption[] {
-      return deepMap(
-        this.routes,
-        (item): MenuOption => ({
+      return deepMap(this.routes, (item): MenuOption => {
+        item.children = item.children?.filter(sub => sub.meta?.show != false);
+        return {
           label: label(item),
-          icon:
-						item.meta?.icon
-						  ? () => h(AntDesignicon, { name: String(item.meta?.icon) })
-						  : undefined,
+          icon: item.meta?.icon ? () => h(Icones, { name: String(item.meta?.icon) }) : undefined,
           key: String(item.name),
           show: item.meta?.show,
           disabled: item.meta?.disabled,
-
-        }),
-      );
+        };
+      });
     },
+
   },
 });

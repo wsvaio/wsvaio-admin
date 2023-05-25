@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import useTabStore from "@/stores/useTabStore";
 
+const setting = useSettingStore();
 const tab = useTabStore();
 </script>
 
 <template>
-  <n-scrollbar>
+  <n-scrollbar :style="{ height: `calc(100% - ${setting.tabHeight}px)` }">
     <router-view #="{ Component }">
       <transition mode="out-in" name="main-fade">
         <keep-alive :include="tab.include" :exclude="tab.exclude">

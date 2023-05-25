@@ -6,7 +6,7 @@ const active = ref(false);
 </script>
 
 <template>
-  <n-button text @click="active = true">
+  <n-button text class="!mr-0" @click="active = true">
     <template #icon>
       <n-icon>
         <i-fluent:settings-24-regular />
@@ -20,6 +20,17 @@ const active = ref(false);
       <theme-switch class="mx-auto"></theme-switch>
       <n-divider>头部高度</n-divider>
       <n-input-number v-model:value="setting.headerHeight" clearable />
+      <n-divider>多页栏高度</n-divider>
+      <n-input-number v-model:value="setting.tabHeight" clearable />
+      <n-divider>页脚高度</n-divider>
+      <n-input-number v-model:value="setting.footerHeight" clearable />
+      <n-divider>布局</n-divider>
+      <n-select
+        v-model:value="setting.layout" :options="[
+          { label: 'left', value: 'left' },
+          { label: 'top', value: 'top' },
+        ]"
+      />
     </n-drawer-content>
   </n-drawer>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRequest } from "vue-request";
-import { antDesignIconNameToUrl } from "@/utils/ant-design-icons";
+import { iconesUrl } from "@/utils/icones";
 import IError from "~icons/fluent/cloud-error-24-regular?raw";
 
 const { name } = defineProps<{
@@ -8,7 +8,7 @@ const { name } = defineProps<{
 }>();
 
 const { data } = useRequest(
-  async () => await fetch(antDesignIconNameToUrl(name)).then(response => response.text()),
+  async () => await fetch(iconesUrl(name)).then(response => response.text()),
 );
 </script>
 
