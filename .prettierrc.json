@@ -1,11 +1,14 @@
 {
-  "printWidth": 100,
-  "semi": true,
-  "vueIndentScriptAndStyle": false,
-  "singleQuote": false,
-  "trailingComma": "all",
-  "proseWrap": "never",
-  "htmlWhitespaceSensitivity": "strict",
-  "endOfLine": "auto",
-  "arrowParens": "avoid"
+	"printWidth": 120,
+	"semi": true,
+	"useTabs": true,
+	"vueIndentScriptAndStyle": false,
+	"singleQuote": false,
+	"trailingComma": "all",
+	"proseWrap": "never",
+	"htmlWhitespaceSensitivity": "ignore",
+	"endOfLine": "lf",
+	"arrowParens": "avoid",
+	"quoteProps": "consistent",
+	"bracketSpacing": true
 }

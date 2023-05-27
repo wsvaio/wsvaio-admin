@@ -5,11 +5,11 @@ const setting = useSettingStore();
 </script>
 
 <template>
-  <n-config-provider abstract :theme="setting.darked ? darkTheme : undefined">
-    <n-notification-provider>
-      <n-el class="h-full">
-        <router-view></router-view>
-      </n-el>
-    </n-notification-provider>
-  </n-config-provider>
+	<n-config-provider abstract :theme="setting.darked ? darkTheme : undefined">
+		<n-notification-provider>
+			<n-el class="h-full">
+				<router-view />
+			</n-el>
+		</n-notification-provider>
+	</n-config-provider>
 </template>

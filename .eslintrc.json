@@ -3,7 +3,35 @@
   "extends": "@wsvaio",
   "rules": {
     "antfu/top-level-function": "off",
-		"no-tabs": "off",
-		"no-mixed-spaces-and-tabs": "off"
+		"vue/html-self-closing": ["error", {
+			"html": {
+				"void": "never",
+				"normal": "always",
+				"component": "always"
+			},
+			"svg": "always",
+			"math": "always"
+		}],
+		"vue/html-indent": ["error", "tab", {
+			"attribute": 1,
+			"baseIndent": 1,
+			"closeBracket": 0,
+			"alignAttributesVertically": false,
+			"ignores": []
+		}],
+		"vue/max-attributes-per-line": ["error", {
+			"singleline": 4,
+			"multiline": 4
+		}],
+		"vue/first-attribute-linebreak": ["error", {
+			"singleline": "beside",
+			"multiline": "below"
+		}],
+		"no-tabs": ["error", {
+			"allowIndentationTabs": true
+		}],
+		"indent": ["error", "tab"],
+		"@typescript-eslint/indent": ["error", "tab"],
+		"arrow-parens": ["error", "as-needed"]
   }
 }
