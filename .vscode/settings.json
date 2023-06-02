@@ -22,5 +22,6 @@
 	"files.eol": "\n",
 	"volar.completion.preferredAttrNameCase": "kebab",
 	"volar.completion.preferredTagNameCase": "kebab",
-	"unocss.underline": false
+	"unocss.underline": false,
+	"editor.suggest.snippetsPreventQuickSuggestions": false,
 }

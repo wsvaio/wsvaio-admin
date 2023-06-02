@@ -4,21 +4,21 @@ import type { App } from "vue";
 import routes from "@/routes";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.VITE_BASE),
-  routes,
+	history: createWebHistory(import.meta.env.VITE_BASE),
+	routes,
 });
 
 router.beforeEach(() => Progress.start());
 
 // 注册路由
 router.beforeEach(async (to, _from, next) => {
-  const auth = useAuthStore();
-  if (auth.routes.length) return next();
-  await auth.addOrReplaceRoute().then(() => {
-    next({ ...to, replace: true });
-  }).catch(() => {
-    next({ path: "/500", replace: true });
-  });
+	const auth = useAuthStore();
+	if (auth.routes.length) return next();
+	await auth.addOrReplaceRoute().then(() => {
+		next({ ...to, replace: true });
+	}).catch(() => {
+		next({ path: "/500", replace: true });
+	});
 });
 
 // router.beforeEach(async (to, _from, next) => {
